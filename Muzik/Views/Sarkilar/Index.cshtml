@@ -1,0 +1,69 @@
+﻿@model Muzik.Models.Sarkilar
+
+@{
+    ViewData["Title"] = "MÜZİK";
+}
+<div class="row form_kapsayici">
+
+    <div class="form_container" style=" display: inline-flex !important;">
+
+        <div class="row" style="padding:0px;">
+            <div class="col-md-4">
+                <form asp-action="View">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group ">
+                        <label asp-for="SarkiAd" class="control-label form_label"></label>
+                        <input asp-for="SarkiAd" class="form-control form_input" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AlbumAd" class="control-label form_label"></label>
+                        <input asp-for="AlbumAd" class="form-control form_input" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Artist" class="control-label form_label"></label>
+                        <input asp-for="Artist" class="form_input form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CikisYili" class="control-label form_label"></label>
+                        <input asp-for="CikisYili" class="form_input form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Tur" class="control-label form_label"></label>
+                        <input asp-for="Tur" class="form-control form_input" />
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SarkiSuresi" class="control-label form_label"></label>
+                        <input asp-for="SarkiSuresi" class="form_input form-control" />
+                    </div>
+
+
+                    <span asp-validation-for="SarkiAd" class="text-danger" style="font-size:8px;"></span>
+
+                    <div class="form-group">
+                        <input type="submit" asp-action="Create" value="Kaydet" class="btn btn-primary" />
+                        &nbsp;&nbsp;&nbsp; &nbsp;
+                       
+                        <input type="reset" value="Temizle" class="btn btn-primary" >
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="form_container" >
+        <a style="font-size:1em; font-family:Verdana;margin:2%;">Şarkı Listesi</a>
+        <br /><br />
+        <!--View component ile gelen yazarlar-->
+
+        <div style="margin-top:8%;">@await Component.InvokeAsync("SarkilarList")</div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

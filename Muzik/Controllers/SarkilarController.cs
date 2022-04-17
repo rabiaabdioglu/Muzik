@@ -57,6 +57,22 @@ namespace Muzik.Controllers
 
             return View(sarki_detay);
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sarkilar = await _context.Muzik.FindAsync(id);
+            if (sarkilar == null)
+            {
+                return NotFound();
+            }
+
+            return View("Edit", sarkilar);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SarkiId,SarkiAd,AlbumAd,CikisYili,Artist,Tur,SarkiSuresi")] Sarkilar sarkilar)

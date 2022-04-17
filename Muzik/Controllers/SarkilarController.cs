@@ -57,15 +57,34 @@ namespace Muzik.Controllers
 
             return View(sarki_detay);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SarkiId,SarkiAd,AlbumAd,CikisYili,Artist,Tur,SarkiSuresi")] Sarkilar sarkilar)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id != sarkilar.SarkiId)
+            if (id == null)
             {
                 return NotFound();
             }
 
+            var sarkilar = await _context.Muzik.FindAsync(id);
+            if (sarkilar == null)
+            {
+                return NotFound();
+            }
+
+            return View("Edit", sarkilar);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("SarkiId,SarkiAd,AlbumAd,CikisYili,Artist,Tur,SarkiSuresi")] Sarkilar sarkilar)
+        {
+            /*
+             * This not required, request created for id, this guaranteed by anti forgery token
+             * Also, You should be redirect if the situation requires cancel the action.
+            if (id != sarkilar.SarkiId)
+            {
+                return NotFound();
+            }
+            */
             if (ModelState.IsValid)
             {
                 try
